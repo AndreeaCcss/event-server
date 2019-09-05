@@ -9,14 +9,8 @@ router.post("/events", (req, res, next) => {
     .catch(err => next(err));
 });
 
-// router.get("/events", (req, res, next) => {
-//   Event.findAll()
-//     .then(events => res.json(events))
-//     .catch(err => next(err));
-// });
-
 router.get("/events", (req, res, next) => {
-  const limit = req.query.limit || 3;
+  const limit = req.query.limit;
   const offset = req.query.offset || 0;
 
   Promise.all([Event.count(), Event.findAll({ limit, offset })])
